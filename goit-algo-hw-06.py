@@ -27,14 +27,19 @@ class Record:
     def remove_phone(self, phone):
         self.phones = [p for p in self.phones if str(p) != phone]
 
+#corrected
     def edit_phone(self, old_phone, new_phone):
-        for i, phone in enumerate(self.phones):
+        found = False
+        for phone in self.phones:
             if str(phone) == old_phone:
-                self.phones[i] = Phone(new_phone)
+                phone.value = new_phone
+                found = True
                 break
-
+        if not found:
+            raise ValueError("Phone number does not exist")
+#corrected
     def find_phone(self, phone):
-        return phone in [str(p) for p in self.phones]
+        return any(str(p) == phone for p in self.phones)
 
     def __str__(self):
         return f"Contact name: {self.name.value}, phones: {'; '.join(str(p) for p in self.phones)}"

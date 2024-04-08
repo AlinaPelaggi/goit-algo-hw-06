@@ -37,9 +37,13 @@ class Record:
                 break
         if not found:
             raise ValueError("Phone number does not exist")
+
 #corrected
     def find_phone(self, phone):
-        return any(str(p) == phone for p in self.phones)
+        for p in self.phones:
+            if str(p) == phone:
+                return p
+        raise ValueError("Phone number does not exist")
 
     def __str__(self):
         return f"Contact name: {self.name.value}, phones: {'; '.join(str(p) for p in self.phones)}"
@@ -54,4 +58,3 @@ class AddressBook(UserDict):
     def delete(self, name):
         if name in self.data:
             del self.data[name]
-
